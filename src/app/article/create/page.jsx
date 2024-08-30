@@ -7,7 +7,7 @@ export default function ArticlePage() {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Article" />
-      <Form />
+      {/* <Form /> */}
     </DefaultLayout>
   );
 }
