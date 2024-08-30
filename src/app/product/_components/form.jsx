@@ -21,7 +21,7 @@ export default function Form({ categories }) {
     stock: 0,
     shipping: false,
     featured: false,
-    colors: ["#000"],
+    colors: ["#000000"],
     images: [],
   });
 
@@ -78,12 +78,18 @@ export default function Form({ categories }) {
 
   async function handleImages(e) {
     setIsLoading(true);
+
     const files = Array.from(e.target.files);
 
     const formData = new FormData();
+
     files.forEach((file) => {
       formData.append("files", file);
     });
+
+    // for (const file of files) {
+    //   formData.append("files", file);
+    // }
 
     try {
       const { data } = await axios.post("/api/images", formData, {
@@ -92,6 +98,8 @@ export default function Form({ categories }) {
           "Content-Type": "multipart/form-data",
         },
       });
+
+      console.log(data);
 
       setForm({
         ...form,
@@ -324,12 +332,12 @@ export default function Form({ categories }) {
                   <button
                     type="button"
                     disabled={isLoading}
-                    onClick={() =>
-                      setForm((prev) => ({
-                        ...prev,
-                        colors: [...prev.colors, "#000"],
-                      }))
-                    }
+                    onClick={() => {
+                      setForm({
+                        ...form,
+                        colors: [...form.colors, "#888888"],
+                      });
+                    }}
                     className="rounded bg-primary px-3 py-1 font-medium text-white hover:bg-opacity-90"
                   >
                     Add

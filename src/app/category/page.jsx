@@ -19,8 +19,7 @@ export default async function CategoryPage() {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Category" />
-
-      <Table categories={categories} />
+      <Table data={categories} />
     </DefaultLayout>
   );
 }

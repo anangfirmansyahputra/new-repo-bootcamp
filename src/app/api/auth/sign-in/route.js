@@ -9,30 +9,27 @@ export async function POST(req, res) {
 
     const user = await db.user.findFirst({
       where: {
-        email,
+        email: email,
       },
     });
 
     if (!user) {
-      return NextResponse.json(
-        {
-          message: "User does not exist",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
-    if (!compareSync(password, user.password)) {
-      return new NextResponse("Password is incorrect", { status: 401 });
-    }
-
-    if (user.role !== "ADMIN") {
-      return new NextResponse("You are not authorized to access this route", {
+      return new NextResponse("Your email or password incorrect", {
         status: 401,
       });
     }
+
+    if (!compareSync(password, user.password)) {
+      return new NextResponse("Your email or password incorrect", {
+        status: 401,
+      });
+    }
+
+    // if (user.role !== "ADMIN") {
+    //   return new NextResponse("You are not authorized to access this route", {
+    //     status: 401,
+    //   });
+    // }
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_ACCESS_KEY, {
       expiresIn: "7d",

@@ -1,15 +1,29 @@
 "use client";
 
+import { db } from "@/lib/db";
+import axios from "axios";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function Table({ categories }) {
+export default function Table({ data }) {
   const router = useRouter();
   const token = Cookies.get("currentUser");
 
   // Buatlah fungsi untuk mendelete category berdasarkan id
-  async function handleDelete(id) {}
+  async function handleDelete(id) {
+    try {
+      await axios.delete(`/api/categories/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      router.refresh();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="overflow-auto rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -36,7 +50,7 @@ export default function Table({ categories }) {
         </div>
       </div>
 
-      {categories.map((category, key) => (
+      {data.map((category, key) => (
         <div
           className="grid grid-cols-4 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-4 md:px-6 2xl:px-7.5"
           key={key}
@@ -111,7 +125,7 @@ export default function Table({ categories }) {
           </div>
         </div>
       ))}
-      {categories.length === 0 && (
+      {data.length === 0 && (
         <div className="flex h-[500px] items-center justify-center text-center">
           No Data
         </div>
