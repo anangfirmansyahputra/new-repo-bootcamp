@@ -11,4 +11,3 @@ export const DELETE = async (req, { params }) => {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 };
-k;
