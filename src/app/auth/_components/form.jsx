@@ -24,14 +24,14 @@ export default function Form() {
       });
 
       Cookies.set("currentUser", data.token);
+      router.refresh();
+      router.push("/");
     } catch (err) {
       Swal.fire({
         title: "Error",
         text: err?.response?.data || "Internal Server Error",
         icon: "error",
       });
-    } finally {
-      router.push("/");
     }
   }
 
