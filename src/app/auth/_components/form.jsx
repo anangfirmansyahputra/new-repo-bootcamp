@@ -23,7 +23,7 @@ export default function Form() {
         password: form.password,
       });
 
-      Cookies.set("currentUser", data.token);
+      await Cookies.set("currentUser", data.token);
       router.push("/");
     } catch (err) {
       Swal.fire({
