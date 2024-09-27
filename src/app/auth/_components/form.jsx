@@ -23,14 +23,15 @@ export default function Form() {
         password: form.password,
       });
 
-      await Cookies.set("currentUser", data.token);
-      router.push("/");
+      Cookies.set("currentUser", data.token);
     } catch (err) {
       Swal.fire({
         title: "Error",
         text: err?.response?.data || "Internal Server Error",
         icon: "error",
       });
+    } finally {
+      router.push("/");
     }
   }
 
