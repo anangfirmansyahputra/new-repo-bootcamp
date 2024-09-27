@@ -24,7 +24,7 @@ export default function Form() {
       });
 
       Cookies.set("currentUser", data.token);
-      router.refresh();
+      router.prefetch("/");
       router.push("/");
     } catch (err) {
       Swal.fire({
